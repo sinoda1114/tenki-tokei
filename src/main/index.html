@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="郵便番号から地域の天気情報をリアルタイムで確認できるサービスです">
+    <meta name="keywords" content="天気予報,郵便番号検索,地域情報">
+    <title>郵便番号・天気情報チェッカー</title>
+    <link rel="stylesheet" href="/styles/tailwind.css">
+    <link rel="icon" href="/assets/favicon.ico" type="image/x-icon">
+</head>
+<body class="bg-gray-50 dark:bg-gray-900">
+    <header class="fixed w-full bg-white dark:bg-gray-800 shadow-sm" role="banner">
+        <nav class="container mx-auto px-4 py-3" role="navigation">
+            <div id="currentTime" class="text-lg font-semibold text-gray-700 dark:text-gray-200" aria-live="polite"></div>
+        </nav>
+    </header>
+
+    <main class="container mx-auto px-4 pt-20 pb-8" role="main">
+        <h1 class="text-3xl font-bold text-gray-900 dark:text-white mb-8">天気情報チェッカー</h1>
+        
+        <section class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 mb-8" aria-labelledby="search-heading">
+            <h2 id="search-heading" class="text-xl font-semibold mb-4">郵便番号から検索</h2>
+            <form id="postalForm" class="space-y-4">
+                <div class="flex flex-col sm:flex-row gap-4">
+                    <label class="flex-1">
+                        <span class="block text-sm font-medium mb-1">郵便番号</span>
+                        <input type="text" 
+                               id="postalCode" 
+                               pattern="\d{3}-?\d{4}"
+                               placeholder="例: 100-0001"
+                               class="w-full px-4 py-2 rounded border focus:ring-2 focus:ring-blue-500"
+                               required
+                               aria-describedby="postal-hint">
+                    </label>
+                    <button type="submit" 
+                            class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded transition-colors"
+                            aria-label="天気を検索">
+                        検索
+                    </button>
+                </div>
+                <p id="postal-hint" class="text-sm text-gray-600">ハイフンありでも無しでも検索できます</p>
+            </form>
+        </section>
+
+        <section id="weatherInfo" 
+                 class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 hidden"
+                 aria-live="polite">
+            <h2 class="text-xl font-semibold mb-4">天気情報</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div id="locationInfo"></div>
+                <div id="weatherDetails"></div>
+            </div>
+        </section>
+
+        <div id="errorMessage" 
+             role="alert"
+             class="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 hidden"></div>
+    </main>
+
+    <footer class="bg-gray-100 dark:bg-gray-800 mt-auto" role="contentinfo">
+        <div class="container mx-auto px-4 py-6">
+            <p class="text-center text-sm text-gray-600 dark:text-gray-400">
+                &copy; 2024 天気情報チェッカー All rights reserved.
+            </p>
+        </div>
+    </footer>
+
+    <script src="/scripts/app.js" type="module"></script>
+</body>
+</html>

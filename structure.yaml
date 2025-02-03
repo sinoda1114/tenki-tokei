@@ -1,0 +1,199 @@
+src:
+  structure.yaml:
+    content: |-
+      郵便番号・天気情報表示アプリケーション
+      - リアルタイム時刻・日付表示
+      - 郵便番号から地域情報取得
+      - 天気情報リアルタイム表示
+      - クライアントサイド処理
+      - 無料APIを活用
+      
+      agent選定理由: claude-3-5-sonnetは軽量で拡張性の高い
+      フロントエンドアプリケーション設計に最適です。
+    ref: "リアルタイム天気情報システム-神威/KAMUI公式"
+    dependency: []
+    agent: "claude-3-5-sonnet-20241022"
+    api: []
+
+  main:
+    index.html:
+      content: |-
+        アプリケーションのメインHTML構造
+        - アクセシビリティ対応
+        - SEO最適化
+        - レスポンシブデザイン
+        
+        agent選定理由: claude-3-5-sonnetはアクセシブルなHTML設計に優れています。
+      dependency:
+        - src/styles/tailwind.css
+        - src/scripts/app.js
+      agent: "claude-3-5-sonnet-20241022"
+      api: []
+
+    app.js:
+      content: |-
+        アプリケーションのメインロジック
+        - モジュール統合
+        - イベントハンドリング
+        - 状態管理
+        
+        agent選定理由: gemini-1.5-proはアプリケーションロジックの
+        統合に優れています。
+      dependency:
+        - src/scripts/time.js
+        - src/scripts/weather.js
+        - src/scripts/error-handler.js
+        - src/scripts/cache.js
+      agent: "gemini-1.5-pro"
+      api: []
+
+  scripts:
+    time.js:
+      content: |-
+        時刻管理モジュール
+        - 1秒間隔の更新
+        - 日本語曜日表示
+        - タイムゾーン対応
+        
+        agent選定理由: claude-3-5-sonnetは時刻処理の実装に適しています。
+      dependency:
+        - src/scripts/i18n.js
+      agent: "claude-3-5-sonnet-20241022"
+      api: []
+
+    weather.js:
+      content: |-
+        天気情報処理モジュール
+        - APIリクエスト
+        - データ変換
+        - 表示更新
+        
+        agent選定理由: gemini-1.5-proは外部API連携に強みがあります。
+      dependency:
+        - src/scripts/error-handler.js
+        - src/scripts/cache.js
+      agent: "gemini-1.5-pro"
+      api: 
+        - "https://nominatim.openstreetmap.org/search"
+        - "https://api.met.no/weatherapi/locationforecast/2.0/compact"
+
+    error-handler.js:
+      content: |-
+        エラー処理モジュール
+        - API例外処理
+        - ユーザーフィードバック
+        - エラーログ
+        
+        agent選定理由: gemini-1.5-proはエラーハンドリングに優れています。
+      dependency: []
+      agent: "gemini-1.5-pro"
+      api: []
+
+    cache.js:
+      content: |-
+        キャッシュ管理モジュール
+        - APIレスポンスキャッシュ
+        - 有効期限管理
+        - ストレージ最適化
+        
+        agent選定理由: claude-3-5-sonnetはキャッシュロジックに適しています。
+      dependency: []
+      agent: "claude-3-5-sonnet-20241022"
+      api: []
+
+    i18n.js:
+      content: |-
+        国際化対応モジュール
+        - 多言語サポート
+        - 日付フォーマット
+        - メッセージ管理
+        
+        agent選定理由: gemini-1.5-proは国際化対応に強みがあります。
+      dependency: []
+      agent: "gemini-1.5-pro"
+      api: []
+
+  styles:
+    tailwind.config.js:
+      content: |-
+        Tailwind設定
+        - カスタムテーマ
+        - ダークモード
+        - レスポンシブ設定
+        
+        agent選定理由: claude-3-5-sonnetはTailwind設定に適しています。
+      dependency: []
+      agent: "claude-3-5-sonnet-20241022"
+      api: []
+
+  tests:
+    unit:
+      time.test.js:
+        content: |-
+          時刻管理のユニットテスト
+          - フォーマット検証
+          - 更新処理テスト
+          
+          agent選定理由: gemini-1.5-proはテスト実装に優れています。
+        dependency:
+          - src/scripts/time.js
+        agent: "gemini-1.5-pro"
+        api: []
+
+      weather.test.js:
+        content: |-
+          天気情報処理のユニットテスト
+          - API通信テスト
+          - データ変換テスト
+          
+          agent選定理由: gemini-1.5-proは複雑なテストケース実装に適しています。
+        dependency:
+          - src/scripts/weather.js
+        agent: "gemini-1.5-pro"
+        api: []
+
+    e2e:
+      app.spec.js:
+        content: |-
+          E2Eテスト
+          - ユーザーフロー検証
+          - レスポンシブ動作確認
+          
+          agent選定理由: gemini-1.5-proはE2Eテスト実装に強みがあります。
+        dependency:
+          - src/main/app.js
+        agent: "gemini-1.5-pro"
+        api: []
+
+  config:
+    '.env.development':
+      content: |-
+        開発環境設定
+        - APIエンドポイント
+        - デバッグフラグ
+      dependency: []
+      agent: "claude-3-5-sonnet-20241022"
+      api: []
+
+    '.env.production':
+      content: |-
+        本番環境設定
+        - APIエンドポイント
+        - キャッシュ設定
+      dependency: []
+      agent: "claude-3-5-sonnet-20241022"
+      api: []
+
+  deploy:
+    cloudflare.yml:
+      content: |-
+        Cloudflareデプロイ設定
+        - ビルド設定
+        - キャッシュ設定
+        - 環境変数
+        
+        agent選定理由: gemini-1.5-proはデプロイ設定に適しています。
+      dependency:
+        - src/config/.env.production
+      agent: "gemini-1.5-pro"
+      api: []

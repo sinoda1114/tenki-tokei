@@ -1,0 +1,34 @@
+name: production
+website_id: <YOUR_WEBSITE_ID>
+account_id: <YOUR_ACCOUNT_ID>
+
+workers_dev: false
+
+kv_namespaces:
+  - binding: <YOUR_KV_NAMESPACE_BINDING>
+    id: <YOUR_KV_NAMESPACE_ID>
+
+environment:
+  - name: API_KEY
+    value: <YOUR_API_KEY>
+  - name: CACHE_TTL
+    value: 86400
+
+build:
+  command: npm run build
+  upload_dir: dist
+
+routes:
+  - pattern: /*
+    custom_domain: <YOUR_CUSTOM_DOMAIN>
+    service: <YOUR_WORKER_NAME>
+    environment: production
+
+wrangler:
+  build:
+    upload:
+      format: service_bindings
+
+miniflare:
+  include:
+    - src/config/.env.production
