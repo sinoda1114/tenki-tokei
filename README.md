@@ -1,4 +1,4 @@
-# Tokei2 Maked Kamui
+# Tokei2 Maked 
 
 ## 概要
 時計ウィジェットアプリケーション
